@@ -1,15 +1,14 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <CRUDAPI msg="Edición de productos"/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import CRUDAPI from './components/ProductCrud.vue'
 
 export default {
-  name: 'App',
+  name: 'CRUD',
   components: {
-    HelloWorld
+    CRUDAPI
   }
 }
 </script>
