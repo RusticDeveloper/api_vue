@@ -1,5 +1,5 @@
 <template>
-  <CRUDAPI msg="Edición de productos"/>
+  <CRUDAPI msg="PRODUCTOS"/>
 </template>
 
 <script>

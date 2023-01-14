@@ -3,7 +3,7 @@
     <h1>{{ msg }}</h1>
   </div>
   <div>
-    <DataTable :value="desserts" responsiveLayout="scroll" :paginator=true :rows="10" :filters="filters"
+    <DataTable :value="products" responsiveLayout="scroll" :paginator=true :rows="5" :filters="filters"
       paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
       :rowsPerPageOptions="[5, 10, 25]" currentPageReportTemplate="Del {first} al {last} de {totalRecords} products">
 
@@ -30,15 +30,16 @@
 
 <script>
 import { FilterMatchMode } from 'primevue/api';
+import ProductService from '@/services/ProductService' 
+
 export default {
-  
-  
   name: 'CRUDAPI',
   props: {
     msg: String
   },
   data() {
     return {
+      products: [],
       filters: {},
       headers: [
         {
@@ -139,10 +140,23 @@ export default {
   },
   created() {
     this.initFilters();
+    this.getProducts();
   },
-  initFilters() {
-    this.filters = {
-      'global': { value: null, matchMode: FilterMatchMode.CONTAINS },
+  methods: {
+    async getProducts() {
+      // Use the eventService to call the getEventSingle() method
+      ProductService.getProducts()
+        .then(
+          (productss => {
+            this.products=productss
+            // this.$set(this, "products", products);
+          }).bind(this)
+        );
+    },
+    initFilters() {
+      this.filters = {
+        'global': { value: null, matchMode: FilterMatchMode.CONTAINS },
+      }
     }
   }
 }
