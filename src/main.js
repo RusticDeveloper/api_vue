@@ -8,6 +8,7 @@ import 'primeicons/primeicons.css'
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import InputText from 'primevue/inputtext';
+import Button from 'primevue/button';
 // import ColumnGroup from 'primevue/columngroup';     //optional for column grouping
 // import Row from 'primevue/row';
 
@@ -18,4 +19,5 @@ app.use(PrimeVue);
 app.component('DataTable', DataTable);
 app.component('Column', Column);
 app.component('InputText', InputText);
+app.component('Button', Button);
 app.mount('#app');

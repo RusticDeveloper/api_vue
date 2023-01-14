@@ -3,9 +3,10 @@
     <h1>{{ msg }}</h1>
   </div>
   <div>
-    <DataTable :value="products" responsiveLayout="scroll" :paginator=true :rows="5" :filters="filters"
+    <DataTable :value="products" :paginator=true :rows="5" :filters="filters"
       paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
-      :rowsPerPageOptions="[5, 10, 25]" currentPageReportTemplate="Del {first} al {last} de {totalRecords} products">
+      :rowsPerPageOptions="[5, 10, 25]" currentPageReportTemplate="Del {first} al {last} de {totalRecords} products"
+      responsiveLayout="scroll" >
 
       <template #header>
         <div class="table-header flex flex-column md:flex-row md:justiify-content-between">
@@ -16,21 +17,32 @@
           </span>
         </div>
       </template>
-      <Column field="name" :sortable="true" header="Nombre"></Column>
-      <Column field="fat" :sortable="true" header="Grasas"></Column>
-      <Column field="carbs" :sortable="true" header="Carbohidratos"></Column>
-      <Column field="calories" :sortable="true" header="Calorias"></Column>
-      <Column field="protein" :sortable="true" header="Proteinas"></Column>
-      <Column field="iron" :sortable="true" header="Hierro"></Column>
-      <Column field="iron" :sortable="true" header="Hierro"></Column>
-
+      <Column selectionMode="multiple" style="width: 3rem" :exportable="false"></Column>
+      <Column field="title" :sortable="true" header="Nombre"></Column>
+      <Column field="price" :sortable="true" header="Precio"></Column>
+      <Column field="description" :sortable="true" header="Observación"></Column>
+      <Column field="category" :sortable="true" header="Categoria"></Column>
+      <!-- <Column header="Imagen" field="images">
+        <template #body="slotProps">
+          <img src="{{products[0].images[0]}}" :alt="slotProps.data.image"
+            class="product-image" />
+        </template>
+      </Column> -->
+      <Column :exportable="false" style="min-width:8rem">
+        <template #body="slotProps">
+          <Button icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"
+            @click="editProduct(slotProps.data)" />
+          <Button icon="pi pi-trash" class="p-button-rounded p-button-warning"
+            @click="confirmDeleteProduct(slotProps.data)" />
+        </template>
+      </Column>
     </DataTable>
   </div>
 </template>
 
 <script>
 import { FilterMatchMode } from 'primevue/api';
-import ProductService from '@/services/ProductService' 
+import ProductService from '@/services/ProductService'
 
 export default {
   name: 'CRUDAPI',
@@ -148,7 +160,8 @@ export default {
       ProductService.getProducts()
         .then(
           (productss => {
-            this.products=productss
+            this.products = productss.products
+            console.log(productss.products)
             // this.$set(this, "products", products);
           }).bind(this)
         );
