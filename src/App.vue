@@ -5,10 +5,12 @@
 <script>
 import CRUDAPI from './components/ProductCrud.vue'
 
+
 export default {
   name: 'CRUD',
   components: {
-    CRUDAPI
+    CRUDAPI,
+  
   }
 }
 </script>
